@@ -1,7 +1,8 @@
 import pandas as pd
 import streamlit as st
 
-from st_aggrid import AgGrid
+from st_aggrid import AgGrid, GridOptionsBuilder, \
+    ColumnsAutoSizeMode
 
 st.set_page_config(
         page_title="Fantasy Pokemon League",
@@ -9,7 +10,7 @@ st.set_page_config(
 
 st.sidebar.title("Pokemon Browser")
 
-pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t',index_col=0)
+pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t')#,index_col=0)
 gen_max = pd.read_csv('./data/gen_max.tsv',sep='\t')
 
 curr_gen = int(
@@ -21,7 +22,7 @@ curr_gen = int(
     )
 
 act_dex = pkm_dex[
-        pkm_dex.index <=
+        pkm_dex['Number'] <=
         gen_max[
             gen_max['gen'] == curr_gen
             ]['max'].iloc[0]
@@ -80,4 +81,13 @@ queried_dex = act_dex[
     )
     ]
 
-AgGrid(queried_dex)
+st.button("Add Selected")
+
+gb = GridOptionsBuilder.from_dataframe(queried_dex)
+gb.configure_selection(selection_mode='single',use_checkbox=True)
+gridOptions = gb.build()
+AgGrid(queried_dex,
+    gridOptions=gridOptions,
+    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+    enable_enterprise_modules=False
+    )
