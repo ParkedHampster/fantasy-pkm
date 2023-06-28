@@ -63,7 +63,7 @@ rule_5.markdown("""
 """
 )
 
-rule_6 = st.expander(" 6 - Team-Building")
+rule_6 = st.expander(" 6 - Team-Building ")
 rule_6.markdown("""
 - Create your teams/boxes under the "National Dex" format
 - If a move, item, or, Ability returns as "Illegal", but the Pokemon CAN learn it naturally, select it anyway.  
@@ -73,7 +73,7 @@ We will be battling in the Custom Game format; this overrides anything considere
 """
 )
 
-rule_7 = st.expander(" 7 - Battling")
+rule_7 = st.expander(" 7 - Battling ")
 rule_7.markdown("""
 - You must have a registered username in order to issue/receive challenges
 - We will be battling under the Gen 9 Custom Game format
