@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 
+from st_aggrid import AgGrid
+
 st.set_page_config(
         page_title="Fantasy Pokemon League",
 )
@@ -78,4 +80,4 @@ queried_dex = act_dex[
     )
     ]
 
-st.table(queried_dex)
+AgGrid(queried_dex)
