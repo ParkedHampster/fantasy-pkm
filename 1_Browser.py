@@ -2,13 +2,13 @@ import pandas as pd
 import streamlit as st
 
 from st_aggrid import AgGrid, GridOptionsBuilder, \
-    ColumnsAutoSizeMode
+    ColumnsAutoSizeMode, GridUpdateMode
 
 st.set_page_config(
         page_title="Fantasy Pokemon League",
 )
 
-st.sidebar.title("Pokemon Browser")
+st.sidebar.title("Team Builder")
 
 pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t')#,index_col=0)
 gen_max = pd.read_csv('./data/gen_max.tsv',sep='\t')
@@ -81,13 +81,36 @@ queried_dex = act_dex[
     )
     ]
 
-st.button("Add Selected")
+selector = st.button("Add Selected")
 
 gb = GridOptionsBuilder.from_dataframe(queried_dex)
 gb.configure_selection(selection_mode='single',use_checkbox=True)
 gridOptions = gb.build()
-AgGrid(queried_dex,
+selected = AgGrid(queried_dex,
     gridOptions=gridOptions,
     columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
-    enable_enterprise_modules=False
+    enable_enterprise_modules=False,
+    update_mode=GridUpdateMode.SELECTION_CHANGED,
     )
+
+if selector:
+    try:
+        st.session_state['team'].append(
+            selected['selected_rows'][0]
+        )
+    except:
+        st.session_state['team'] = selected['selected_rows']
+
+if 'team' not in st.session_state:
+    st.session_state['team'] = ''
+
+try:
+    st.sidebar.write(
+        pd.DataFrame(
+            st.session_state['team']
+        )[
+            ['Number','Name']
+        ].set_index('Number')
+    )
+except:
+    ''
