@@ -103,8 +103,7 @@ if selector:
 
 if 'team' not in st.session_state:
     st.session_state['team'] = ''
-
-try:
+else:
     st.sidebar.write(
         pd.DataFrame(
             st.session_state['team']
@@ -112,5 +111,3 @@ try:
             ['Number','Name']
         ].set_index('Number')
     )
-except:
-    ''
