@@ -10,7 +10,13 @@ st.sidebar.title("Pokemon Browser")
 pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t',index_col=0)
 gen_max = pd.read_csv('./data/gen_max.tsv',sep='\t')
 
-curr_gen = 4
+curr_gen = int(
+    st.number_input("Current Generation",
+        min_value=1,
+        value=4,
+        max_value=9
+    )
+    )
 
 act_dex = pkm_dex[
         pkm_dex.index <=
