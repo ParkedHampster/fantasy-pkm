@@ -66,9 +66,7 @@ with type_cols[1]:
         typelist
     )
 
-
-
-act_dex[
+queried_dex = act_dex[
     (act_dex['Name'].str.contains(pk_name_search,na=False,case=False)) &
     (
         (act_dex['Type 1'].str.contains(type1,na=False)) |
@@ -79,3 +77,5 @@ act_dex[
         (act_dex['Type 2'].str.contains(type2,na=False))
     )
     ]
+
+st.table(queried_dex)
