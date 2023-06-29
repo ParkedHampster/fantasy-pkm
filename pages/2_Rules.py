@@ -1,5 +1,9 @@
 import streamlit as st
 
+from shared_code.user_status import side_header
+
+side_header()
+
 st.title("Rules")
 
 rule_1 = st.expander(" 1 - Levels")

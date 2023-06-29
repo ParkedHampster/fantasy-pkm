@@ -11,3 +11,6 @@ system for users.
 The system runs off of streamlit and can be hosted in
 the cloud at
 [streamlit.io](https://streamlit.io)
+
+Pokemon data acquired from
+[pokemondb.net](https://pokemondb.net)

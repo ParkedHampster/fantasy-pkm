@@ -40,3 +40,7 @@ def side_header():
                     )
                 if login:
                     st.session_state['user'] = login_form.login_name
+
+        # st.write(
+        #     st.session_state
+        # )

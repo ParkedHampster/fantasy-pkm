@@ -4,9 +4,9 @@ import streamlit as st
 from st_aggrid import AgGrid, GridOptionsBuilder, \
     ColumnsAutoSizeMode, GridUpdateMode
 
-st.set_page_config(
-        page_title="Fantasy Pokemon League",
-)
+from shared_code.user_status import side_header
+
+side_header()
 
 st.sidebar.title("Team Builder")
 
@@ -86,14 +86,22 @@ selector = st.button("Add Selected")
 
 gb = GridOptionsBuilder.from_dataframe(queried_dex)
 gb.configure_selection(selection_mode='single',use_checkbox=True)
-gridOptions = gb.build()
+# gb.configure_auto_height(autoHeight=True)
+gb.configure_pagination(
+    enabled=True,
+    paginationAutoPageSize=False,
+    paginationPageSize=25,
+)
 
-selected = AgGrid(queried_dex,
-    gridOptions=gridOptions,
-    columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
-    enable_enterprise_modules=False,
-    update_mode=GridUpdateMode.SELECTION_CHANGED,
-    )
+gridOptions = gb.build()
+with st.container():
+    selected = AgGrid(queried_dex,
+        gridOptions=gridOptions,
+        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+        fit_columns_on_grid_load=True,
+        enable_enterprise_modules=False,
+        update_mode=GridUpdateMode.SELECTION_CHANGED,
+        )
 
 if selector:
     try:
@@ -106,10 +114,13 @@ if selector:
 if 'team' not in st.session_state:
     st.session_state['team'] = ''
 else:
-    st.sidebar.write(
-        pd.DataFrame(
-            st.session_state['team']
-        )[
-            ['Number','Name']
-        ].set_index('Number')
-    )
+    try:
+        st.sidebar.write(
+            pd.DataFrame(
+                st.session_state['team']
+            )[
+                ['Number','Name']
+            ].set_index('Number')
+        )
+    except:
+        pass
