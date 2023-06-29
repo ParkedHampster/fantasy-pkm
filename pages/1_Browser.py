@@ -6,6 +6,9 @@ from st_aggrid import AgGrid, GridOptionsBuilder, \
 
 from shared_code.user_status import side_header
 
+def team_clear():
+    del st.session_state['team']
+
 side_header()
 
 st.sidebar.title("Team Builder")
@@ -86,7 +89,6 @@ selector = st.button("Add Selected")
 
 gb = GridOptionsBuilder.from_dataframe(queried_dex)
 gb.configure_selection(selection_mode='single',use_checkbox=True)
-# gb.configure_auto_height(autoHeight=True)
 gb.configure_pagination(
     enabled=True,
     paginationAutoPageSize=False,
@@ -103,6 +105,18 @@ with st.container():
         update_mode=GridUpdateMode.SELECTION_CHANGED,
         )
 
+with st.sidebar:
+    btn_cols = st.columns(2)
+    with btn_cols[0]:
+        clear_team = st.button(":red[Clear Team]",
+        use_container_width=True,
+        on_click=team_clear
+        )
+    with btn_cols[1]:
+        delete_selected = st.button("Delete Selected",
+        use_container_width=True
+        )
+
 if selector:
     try:
         st.session_state['team'].append(
@@ -115,12 +129,18 @@ if 'team' not in st.session_state:
     st.session_state['team'] = ''
 else:
     try:
-        st.sidebar.write(
+        st.sidebar.dataframe(
             pd.DataFrame(
                 st.session_state['team']
             )[
                 ['Number','Name']
-            ].set_index('Number')
+            ].set_index('Number'),
+            use_container_width=True
         )
     except:
         pass
+
+with st.sidebar:
+    st.button("Submit Team",
+        use_container_width=True
+        )
