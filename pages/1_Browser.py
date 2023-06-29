@@ -83,9 +83,11 @@ queried_dex = act_dex[
 
 selector = st.button("Add Selected")
 
+
 gb = GridOptionsBuilder.from_dataframe(queried_dex)
 gb.configure_selection(selection_mode='single',use_checkbox=True)
 gridOptions = gb.build()
+
 selected = AgGrid(queried_dex,
     gridOptions=gridOptions,
     columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
