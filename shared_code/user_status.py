@@ -23,12 +23,12 @@ def user_login():
         cursor = conn.cursor()
         login_check = pd.read_sql(f"""
         SELECT * FROM logins
-        WHERE username LIKE '{username.lower()}'
+        WHERE LOWER( username ) = '{username.lower()}'
         """,conn)
-    st.title(int(login_check['pin'][0]) == int(user_pin))
     if int(user_pin) == login_check['pin'][0]:
         username = login_check['username'][0]
         st.session_state['user'] = username
+        st.session_state['userID'] = login_check['userID'][0]
 
 def side_header():
     with st.sidebar:
