@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import sqlite3 as sql
 
 from st_aggrid import AgGrid, GridOptionsBuilder, \
     ColumnsAutoSizeMode, GridUpdateMode
@@ -144,3 +145,6 @@ with st.sidebar:
     st.button("Submit Team",
         use_container_width=True
         )
+    # st.write(
+    #     st.session_state['team'][0]['Name']
+    # )
