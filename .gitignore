@@ -165,4 +165,8 @@ cython_debug/
 # ignore automatically generated vscode files
 .vscode/
 
+# users database
 data/users.db
+
+# temporary sql queries
+-- SQLite.sql
