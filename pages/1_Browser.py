@@ -13,7 +13,7 @@ side_header()
 
 st.sidebar.title("Team Builder")
 
-pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t')#,index_col=0)
+pkm_dex = pd.read_csv('./data/pkm_base.tsv',sep='\t')
 gen_max = pd.read_csv('./data/gen_max.tsv',sep='\t')
 
 curr_gen = int(
