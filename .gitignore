@@ -164,3 +164,5 @@ cython_debug/
 
 # ignore automatically generated vscode files
 .vscode/
+
+data/users.db

@@ -1,4 +1,6 @@
 import streamlit as st
+import sqlite3 as sql
+import pandas as pd
 
 login = False
 logout = False
@@ -7,9 +9,26 @@ def user_logout():
     del st.session_state['user']
 
 def user_login():
-    st.session_state['user'] = st.session_state['login_name']
-    # st.sidebar.title(login_name)
-    # return login_name
+    username = st.session_state['login_name']
+    user_pin = st.session_state['login_pin']
+    if len(user_pin) < 1:
+        st.warning('Please input a PIN number')
+        return
+    try:
+        user_pin = int(user_pin)
+    except:
+        st.warning('PIN numbers must be numbers')
+        return
+    with sql.connect("./data/users.db") as conn:
+        cursor = conn.cursor()
+        login_check = pd.read_sql(f"""
+        SELECT * FROM logins
+        WHERE username LIKE '{username.lower()}'
+        """,conn)
+    st.title(int(login_check['pin'][0]) == int(user_pin))
+    if int(user_pin) == login_check['pin'][0]:
+        username = login_check['username'][0]
+        st.session_state['user'] = username
 
 def side_header():
     with st.sidebar:
@@ -32,15 +51,15 @@ def side_header():
                     key='login_name'
                     )
                 login_pin = login_form.text_input(
-                    "PIN",type='password'
+                    "PIN",type='password',
+                    key='login_pin'
                     )
                 login = login_form.form_submit_button(
                     "Log In",
                     on_click=user_login,
                     )
-                if login:
-                    st.session_state['user'] = login_form.login_name
 
+    # use this for testing and investigating session state
         # st.write(
         #     st.session_state
         # )
