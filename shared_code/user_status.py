@@ -6,8 +6,10 @@ logout = False
 def user_logout():
     del st.session_state['user']
 
-def user_login(login_name):
-    st.session_state['user'] = login_name
+def user_login():
+    st.session_state['user'] = st.session_state['login_name']
+    # st.sidebar.title(login_name)
+    # return login_name
 
 def side_header():
     with st.sidebar:
@@ -16,9 +18,6 @@ def side_header():
             user_options = st.expander(str(user))
             with user_options:
                 logout = st.button("Log Out",on_click=user_logout)
-            if logout:
-                del st.session_state['user']
-
         else:
             user_options = st.expander(
                 "Not Signed In"
@@ -28,10 +27,16 @@ def side_header():
                     key='login_info',
                     clear_on_submit=True
                     )
-                login_name = login_form.text_input("Username",value='jd')
-                login_pin = login_form.number_input("PIN",min_value=0)
+                login_name = login_form.text_input(
+                    "Username",
+                    key='login_name'
+                    )
+                login_pin = login_form.text_input(
+                    "PIN",type='password'
+                    )
                 login = login_form.form_submit_button(
                     "Log In",
-                    kwargs={'login_name':login_name},
-                    on_click=user_login
+                    on_click=user_login,
                     )
+                if login:
+                    st.session_state['user'] = login_form.login_name
