@@ -157,7 +157,7 @@ else:
             pd.DataFrame(
                 st.session_state['team']
             )[
-                ['Number','Name']
+                ['Number','Name','Stage']
             ].set_index('Number'),
             use_container_width=True
         )
@@ -170,6 +170,6 @@ if 'user' in st.session_state:
             use_container_width=True,
             on_click=register_team
             )
-        st.write(
-            st.session_state
-        )
+        # st.write(
+        #     st.session_state
+        # )
