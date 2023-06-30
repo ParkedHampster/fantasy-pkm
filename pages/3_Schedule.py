@@ -19,3 +19,25 @@ matches[-1].markdown("""
 | BYE       | Justin | Justin |
 
 """)
+                     
+robin_roll = st.button("Round Robin Test",
+    # on_click=round_robin,
+    # kwargs={'players':['jd','omg','lmao','gai']}
+    )
+
+players = [
+    'KAYSEE',
+    'GIUSEPPE',
+    'CHARLOTTE',
+    'JUSTIN',
+    'DYLAN',
+    'PAUL',
+    'JOEY',
+    'NICK',
+    'RANCE',
+    'JD'
+]
+if robin_roll:
+    robin = round_robin(players)
+    st.write(robin)
+# st.write(fellas)
