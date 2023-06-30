@@ -13,23 +13,23 @@ def team_clear():
 def register_team():
     with sql.connect('./data/users.db') as conn:
         cursor = conn.cursor()
-        for pkmName in st.session_state['team']:
+        for pkm in st.session_state['team']:
             cursor.execute(f"""
-                           INSERT INTO teams
-                           (
-                           userID, pkmName, pkmEvoStage
-                           )
-                           VALUES
-                           (
-                           '{
-                               st.session_state['userID']
-                           }','{
-                               pkmName['Name']
-                           }','{
-                               -1
-                           }'
-                           )
-                           """)
+                INSERT INTO teams
+                (
+                userID, pkmName, pkmEvoStage
+                )
+                VALUES
+                (
+                '{
+                    st.session_state['userID']
+                }','{
+                    pkm['Name']
+                }','{
+                    pkm['Stage']
+                }'
+                )
+                """)
         team_clear()
 
 
@@ -53,7 +53,7 @@ act_dex = pkm_dex[
         gen_max[
             gen_max['gen'] == curr_gen
             ]['max'].iloc[0]
-        ]
+        ][['Number','Name','Type 1','Type 2','Stage']]
 
 typelist = [
     '',
@@ -170,6 +170,6 @@ if 'user' in st.session_state:
             use_container_width=True,
             on_click=register_team
             )
-    # st.write(
-    #     st.session_state
-    # )
+        st.write(
+            st.session_state
+        )
