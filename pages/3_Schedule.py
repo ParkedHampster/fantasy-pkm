@@ -7,18 +7,18 @@ side_header()
 
 st.markdown("# UNDER CONSTRUCTION")
 
-matches = []
-matches.append(st.expander("## Week {}"))
-matches[-1].markdown("""
-| Competitor 1 | Competitor 2 | Winner |
-| ---: | :--- | :---: |
-| Charlotte | Nick | ??? |
-| Paul      | Giuseppe | ??? |
-| Dylan     | Kaysee | ??? |
-| Joey      | Rance | ??? |
-| BYE       | Justin | Justin |
+# matches = []
+# matches.append(st.expander("## Week {}"))
+# matches[-1].markdown("""
+# | Competitor 1 | Competitor 2 | Winner |
+# | ---: | :--- | :---: |
+# | Charlotte | Nick | ??? |
+# | Paul      | Giuseppe | ??? |
+# | Dylan     | Kaysee | ??? |
+# | Joey      | Rance | ??? |
+# | BYE       | Justin | Justin |
 
-""")
+# """)
                      
 robin_roll = st.button("Round Robin Test",
     # on_click=round_robin,
@@ -38,6 +38,14 @@ players = [
     'JD'
 ]
 if robin_roll:
-    robin = round_robin(players)
-    st.write(robin)
+    matches = round_robin(players)
+    # st.dataframe(matches[0])
+    match_list = []
+    for i, match in enumerate(matches):
+        match_list.append(st.expander(f"Week {i+1}"))
+        match_list[i].dataframe(
+            match
+        )
+
+
 # st.write(fellas)
