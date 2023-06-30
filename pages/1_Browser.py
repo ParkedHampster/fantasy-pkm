@@ -10,6 +10,29 @@ from shared_code.user_status import side_header
 def team_clear():
     del st.session_state['team']
 
+def register_team():
+    with sql.connect('./data/users.db') as conn:
+        cursor = conn.cursor()
+        for pkmName in st.session_state['team']:
+            cursor.execute(f"""
+                           INSERT INTO teams
+                           (
+                           userID, pkmName, pkmEvoStage
+                           )
+                           VALUES
+                           (
+                           '{
+                               st.session_state['userID']
+                           }','{
+                               pkmName['Name']
+                           }','{
+                               -1
+                           }'
+                           )
+                           """)
+        team_clear()
+
+
 side_header()
 
 st.sidebar.title("Team Builder")
@@ -141,10 +164,12 @@ else:
     except:
         pass
 
-with st.sidebar:
-    st.button("Submit Team",
-        use_container_width=True
-        )
+if 'user' in st.session_state:
+    with st.sidebar:
+        st.button("Submit Team",
+            use_container_width=True,
+            on_click=register_team
+            )
     # st.write(
-    #     st.session_state['team'][0]['Name']
+    #     st.session_state
     # )
