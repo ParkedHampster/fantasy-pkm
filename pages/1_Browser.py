@@ -53,7 +53,7 @@ act_dex = pkm_dex[
         gen_max[
             gen_max['gen'] == curr_gen
             ]['max'].iloc[0]
-        ][['Number','Name','Type 1','Type 2','Stage']]
+        ]
 
 typelist = [
     '',
@@ -111,7 +111,9 @@ queried_dex = act_dex[
 selector = st.button("Add Selected")
 
 
-gb = GridOptionsBuilder.from_dataframe(queried_dex)
+gb = GridOptionsBuilder.from_dataframe(
+    queried_dex[['Number','Name','Type 1','Type 2','Stage']]
+    )
 gb.configure_selection(selection_mode='single',use_checkbox=True)
 gb.configure_pagination(
     enabled=True,
@@ -121,7 +123,8 @@ gb.configure_pagination(
 
 gridOptions = gb.build()
 with st.container():
-    selected = AgGrid(queried_dex,
+    selected = AgGrid(
+        queried_dex[['Number','Name','Type 1','Type 2','Stage']],
         gridOptions=gridOptions,
         columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
         fit_columns_on_grid_load=True,
