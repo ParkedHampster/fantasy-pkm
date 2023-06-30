@@ -170,3 +170,6 @@ data/users.db
 
 # temporary sql queries
 -- SQLite.sql
+
+# no longer need to keep pushing discovery notebook
+discovery.ipynb
