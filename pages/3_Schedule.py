@@ -1,4 +1,6 @@
 import streamlit as st
+import sqlite3 as sql
+import pandas as pd
 
 from shared_code.user_status import side_header
 from shared_code.round_robin import round_robin
@@ -25,19 +27,25 @@ robin_roll = st.button("Round Robin Test",
     # kwargs={'players':['jd','omg','lmao','gai']}
     )
 
-players = [
-    'KAYSEE',
-    'GIUSEPPE',
-    'CHARLOTTE',
-    'JUSTIN',
-    'DYLAN',
-    'PAUL',
-    'JOEY',
-    'NICK',
-    'RANCE',
-    'JD'
-]
+# players = [
+#     'KAYSEE',
+#     'GIUSEPPE',
+#     'CHARLOTTE',
+#     'JUSTIN',
+#     'DYLAN',
+#     'PAUL',
+#     'JOEY',
+#     'NICK',
+#     'RANCE',
+#     'JD'
+# ]
 if robin_roll:
+    conn = sql.connect('./data/users.db')
+    players = list(pd.read_sql(
+        """
+        SELECT username FROM logins
+        """,conn
+    )['username'])
     matches = round_robin(players)
     # st.dataframe(matches[0])
     match_list = []
