@@ -1,9 +1,12 @@
+from random import shuffle
+
 # Code adapted from ih84ds round-robin.py:
 # https://gist.github.com/ih84ds/be485a92f334c293ce4f1c84bfba54c9
 
 def round_robin(players):
     """ Create a schedule for the players in the list and return it"""
     s = []
+    shuffle(players)
     if len(players) % 2 == 1: players = players + ["**BYE**"]
     # manipulate map (array of indexes for list) instead of list itself
     # this takes advantage of even/odd indexes to determine home vs. away
