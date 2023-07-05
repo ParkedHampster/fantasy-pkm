@@ -4,7 +4,7 @@
 def round_robin(players):
     """ Create a schedule for the players in the list and return it"""
     s = []
-    if len(players) % 2 == 1: players = players + [None]
+    if len(players) % 2 == 1: players = players + ["**BYE**"]
     # manipulate map (array of indexes for list) instead of list itself
     # this takes advantage of even/odd indexes to determine home vs. away
     n = len(players)
