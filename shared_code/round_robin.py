@@ -28,7 +28,3 @@ def round_robin(players):
         # rotate list by n/2, leaving last element at the end
         map = map[mid:-1] + map[:mid] + map[-1:]
     return s
-
-# teams = ["Lions", "Tigers", "Bears", "Dorothy", "Toto"]
-# schedule = create_balanced_round_robin(teams)
-# print("\n".join(['{} vs. {}'.format(m[0], m[1]) for round in schedule for m in round]))
