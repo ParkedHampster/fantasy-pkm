@@ -7,6 +7,7 @@ logout = False
 
 def user_logout():
     del st.session_state['user']
+    del st.session_state['userID']
 
 def user_login():
     username = st.session_state['login_name']
@@ -20,7 +21,6 @@ def user_login():
         st.warning('PIN numbers must be numbers')
         return
     with sql.connect("./data/users.db") as conn:
-        cursor = conn.cursor()
         login_check = pd.read_sql(f"""
         SELECT * FROM logins
         WHERE LOWER( username ) = '{username.lower()}'
