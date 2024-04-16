@@ -1,5 +1,11 @@
 # fantasy-pkm
 
+## NOTE
+
+This project is being severely overhauled.
+
+It may be replaced by another project soon.
+
 This tool is an open-source project for creating and
 hosting a "Fantasy Pokemon" league.
 
